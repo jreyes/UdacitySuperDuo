@@ -1,4 +1,4 @@
-package it.jaschke.alexandria;
+package it.jaschke.alexandria.fragment;
 
 import android.app.Activity;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package it.jaschke.alexandria;
+package it.jaschke.alexandria.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -17,7 +17,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import it.jaschke.alexandria.*;
 import it.jaschke.alexandria.api.Callback;
+import it.jaschke.alexandria.fragment.About;
+import it.jaschke.alexandria.fragment.AddBook;
+import it.jaschke.alexandria.fragment.BookDetail;
+import it.jaschke.alexandria.fragment.ListOfBooks;
+import it.jaschke.alexandria.fragment.NavigationDrawerFragment;
 
 
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, Callback {

@@ -1,4 +1,4 @@
-package it.jaschke.alexandria;
+package it.jaschke.alexandria.activity;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
