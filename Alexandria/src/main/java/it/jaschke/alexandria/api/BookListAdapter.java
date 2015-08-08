@@ -8,14 +8,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
-
 import it.jaschke.alexandria.R;
 import it.jaschke.alexandria.data.AlexandriaContract;
-import it.jaschke.alexandria.services.DownloadImage;
 
 public class BookListAdapter extends CursorAdapter {
+// -------------------------- INNER CLASSES --------------------------
+
+    public static class ViewHolder {
+        public final ImageView bookCover;
+        public final TextView bookTitle;
+        public final TextView bookSubTitle;
+
+        public ViewHolder(View view) {
+            bookCover = (ImageView) view.findViewById(R.id.fullBookCover);
+            bookTitle = (TextView) view.findViewById(R.id.listBookTitle);
+            bookSubTitle = (TextView) view.findViewById(R.id.listBookSubTitle);
+        }
+    }
+
 // --------------------------- CONSTRUCTORS ---------------------------
 
     public BookListAdapter(Context context, Cursor c, int flags) {
@@ -43,19 +54,5 @@ public class BookListAdapter extends CursorAdapter {
         View view = LayoutInflater.from(context).inflate(R.layout.book_list_item, parent, false);
         view.setTag(new ViewHolder(view));
         return view;
-    }
-
-// -------------------------- INNER CLASSES --------------------------
-
-    public static class ViewHolder {
-        public final ImageView bookCover;
-        public final TextView bookTitle;
-        public final TextView bookSubTitle;
-
-        public ViewHolder(View view) {
-            bookCover = (ImageView) view.findViewById(R.id.fullBookCover);
-            bookTitle = (TextView) view.findViewById(R.id.listBookTitle);
-            bookSubTitle = (TextView) view.findViewById(R.id.listBookSubTitle);
-        }
     }
 }
