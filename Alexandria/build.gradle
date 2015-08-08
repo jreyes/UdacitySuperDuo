@@ -1,35 +1,38 @@
 apply plugin: 'com.android.application'
 
 android {
-  compileSdkVersion 22
-  buildToolsVersion "23.0.0 rc3"
+    compileSdkVersion 22
+    buildToolsVersion "23.0.0 rc3"
 
-  defaultConfig {
-    applicationId "it.jaschke.alexandria"
-    minSdkVersion 16
-    targetSdkVersion 22
-    versionCode 1
-    versionName "1.0"
-  }
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_7
-    targetCompatibility JavaVersion.VERSION_1_7
-  }
-  buildTypes {
-    release {
-      testCoverageEnabled = true
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    defaultConfig {
+        applicationId "it.jaschke.alexandria"
+        minSdkVersion 16
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
     }
-    debug {
-      testCoverageEnabled = true
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
+    buildTypes {
+        release {
+            testCoverageEnabled = true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            testCoverageEnabled = true
+        }
 
-  }
-  lintOptions {
-    abortOnError false
-  }
+    }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
-  compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.android.support:appcompat-v7:22.2.1'
+
+    // Picasso
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
