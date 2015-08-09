@@ -1,4 +1,4 @@
-package barqsoft.footballscores;
+package barqsoft.footballscores.fragment;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,22 +12,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import barqsoft.footballscores.service.myFetchService;
+import barqsoft.footballscores.R;
+import barqsoft.footballscores.activity.MainActivity;
+import barqsoft.footballscores.adapter.ViewHolder;
+import barqsoft.footballscores.adapter.ScoresAdapter;
+import barqsoft.footballscores.data.DatabaseContract;
+import barqsoft.footballscores.service.MyFetchService;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainScreenFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class MainFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 // ------------------------------ FIELDS ------------------------------
 
     public static final int SCORES_LOADER = 0;
-    public scoresAdapter mAdapter;
+    public ScoresAdapter mAdapter;
     private String[] fragmentdate = new String[1];
     private int last_selected_item = -1;
 
 // --------------------------- CONSTRUCTORS ---------------------------
 
-    public MainScreenFragment() {
+    public MainFragment() {
     }
 
 // ------------------------ INTERFACE METHODS ------------------------
@@ -77,7 +82,7 @@ public class MainScreenFragment extends Fragment implements LoaderManager.Loader
         update_scores();
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         final ListView score_list = (ListView) rootView.findViewById(R.id.scores_list);
-        mAdapter = new scoresAdapter(getActivity(), null, 0);
+        mAdapter = new ScoresAdapter(getActivity(), null, 0);
         score_list.setAdapter(mAdapter);
         getLoaderManager().initLoader(SCORES_LOADER, null, this);
         mAdapter.detail_match_id = MainActivity.selected_match_id;
@@ -98,7 +103,7 @@ public class MainScreenFragment extends Fragment implements LoaderManager.Loader
     }
 
     private void update_scores() {
-        Intent service_start = new Intent(getActivity(), myFetchService.class);
+        Intent service_start = new Intent(getActivity(), MyFetchService.class);
         getActivity().startService(service_start);
     }
 }

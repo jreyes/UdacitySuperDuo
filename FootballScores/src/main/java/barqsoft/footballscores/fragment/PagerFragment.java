@@ -1,4 +1,4 @@
-package barqsoft.footballscores;
+package barqsoft.footballscores.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import barqsoft.footballscores.R;
+import barqsoft.footballscores.activity.MainActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,7 +26,7 @@ public class PagerFragment extends Fragment {
     public static final int NUM_PAGES = 5;
     public ViewPager mPagerHandler;
     private myPageAdapter mPagerAdapter;
-    private MainScreenFragment[] viewFragments = new MainScreenFragment[5];
+    private MainFragment[] viewFragments = new MainFragment[5];
 
     private class myPageAdapter extends FragmentStatePagerAdapter {
         @Override
@@ -75,13 +77,13 @@ public class PagerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.pager_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_pager, container, false);
         mPagerHandler = (ViewPager) rootView.findViewById(R.id.pager);
         mPagerAdapter = new myPageAdapter(getChildFragmentManager());
         for (int i = 0; i < NUM_PAGES; i++) {
             Date fragmentdate = new Date(System.currentTimeMillis() + ((i - 2) * 86400000));
             SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
-            viewFragments[i] = new MainScreenFragment();
+            viewFragments[i] = new MainFragment();
             viewFragments[i].setFragmentDate(mformat.format(fragmentdate));
         }
         mPagerHandler.setAdapter(mPagerAdapter);

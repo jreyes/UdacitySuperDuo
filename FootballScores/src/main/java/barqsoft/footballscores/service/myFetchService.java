@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
-import barqsoft.footballscores.DatabaseContract;
+import barqsoft.footballscores.data.DatabaseContract;
 import barqsoft.footballscores.R;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,14 +26,14 @@ import java.util.Vector;
 /**
  * Created by yehya khaled on 3/2/2015.
  */
-public class myFetchService extends IntentService {
+public class MyFetchService extends IntentService {
 // ------------------------------ FIELDS ------------------------------
 
     public static final String LOG_TAG = "myFetchService";
 
 // --------------------------- CONSTRUCTORS ---------------------------
 
-    public myFetchService() {
+    public MyFetchService() {
         super("myFetchService");
     }
 

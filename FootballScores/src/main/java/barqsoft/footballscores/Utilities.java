@@ -3,7 +3,7 @@ package barqsoft.footballscores;
 /**
  * Created by yehya khaled on 3/3/2015.
  */
-public class Utilies {
+public class Utilities {
 // ------------------------------ FIELDS ------------------------------
 
     public static final int BUNDESLIGA = 351;
