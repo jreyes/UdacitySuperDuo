@@ -53,14 +53,14 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
         if (mTwoPane) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.right_container, fragment)
+                    .replace(R.id.right_container, fragment, BookDetail.TAG)
                     .addToBackStack(BookDetail.TAG)
                     .commit();
         } else {
             mDrawer.setDrawerIndicatorEnabled(false);
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.container, fragment)
+                    .add(R.id.container, fragment, BookDetail.TAG)
                     .addToBackStack(BookDetail.TAG)
                     .commit();
         }
@@ -89,26 +89,6 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
                 nextFragment = new About();
                 break;
         }
-
-        /*
-        if (mTwoPane) {
-            Fragment fragment = getSupportFragmentManager().findFragmentByTag(BookDetail.TAG);
-            if (fragment != null) {
-                getSupportFragmentManager()
-                        .popBackStackImmediate(BookDetail.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .remove(fragment)
-                        .commit();
-                getSupportFragmentManager().executePendingTransactions();
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.right_container, fragment, BookDetail.TAG)
-                        .addToBackStack(BookDetail.TAG)
-                        .commit();
-            }
-        }
-        */
 
         getSupportFragmentManager()
                 .beginTransaction()
