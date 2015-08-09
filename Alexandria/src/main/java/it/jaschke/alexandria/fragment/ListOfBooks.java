@@ -1,12 +1,17 @@
 package it.jaschke.alexandria.fragment;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +22,7 @@ import it.jaschke.alexandria.R;
 import it.jaschke.alexandria.api.BookListAdapter;
 import it.jaschke.alexandria.api.Callback;
 import it.jaschke.alexandria.data.AlexandriaContract;
+import it.jaschke.alexandria.services.BookService;
 
 public class ListOfBooks extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 // ------------------------------ FIELDS ------------------------------
@@ -25,8 +31,16 @@ public class ListOfBooks extends Fragment implements LoaderManager.LoaderCallbac
 
     private ListView bookList;
     private BookListAdapter bookListAdapter;
+    private DeleteBookReceiver mDeleteBookReceiver;
     private int position = ListView.INVALID_POSITION;
     private EditText searchText;
+
+    private class DeleteBookReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            restartLoader();
+        }
+    }
 
 // ------------------------ INTERFACE METHODS ------------------------
 
@@ -96,10 +110,11 @@ public class ListOfBooks extends Fragment implements LoaderManager.LoaderCallbac
                 null  // sort order
         );
 
+        mDeleteBookReceiver = new DeleteBookReceiver();
 
         bookListAdapter = new BookListAdapter(getActivity(), cursor, 0);
+
         View rootView = inflater.inflate(R.layout.fragment_list_of_books, container, false);
-        searchText = (EditText) rootView.findViewById(R.id.searchText);
         rootView.findViewById(R.id.searchButton).setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -109,9 +124,10 @@ public class ListOfBooks extends Fragment implements LoaderManager.LoaderCallbac
                 }
         );
 
+        searchText = (EditText) rootView.findViewById(R.id.searchText);
+
         bookList = (ListView) rootView.findViewById(R.id.listOfBooks);
         bookList.setAdapter(bookListAdapter);
-
         bookList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -124,6 +140,20 @@ public class ListOfBooks extends Fragment implements LoaderManager.LoaderCallbac
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        IntentFilter filter = new IntentFilter(BookService.DELETE_BOOK);
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mDeleteBookReceiver, filter);
+    }
+
+    @Override
+    public void onStop() {
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(mDeleteBookReceiver);
+        super.onStop();
     }
 
     private void restartLoader() {
