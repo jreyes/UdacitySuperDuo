@@ -153,7 +153,6 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
         // Set up the drawer.
         mDrawer = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mDrawer.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
-        onNavigationDrawerItemSelected(mDrawer.getCurrentSelectedPosition());
     }
 
     @Override

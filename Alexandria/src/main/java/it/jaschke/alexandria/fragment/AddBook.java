@@ -184,12 +184,9 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
         if (ean.length() == 10 && !ean.startsWith("978")) {
             ean = "978" + ean;
         }
+
         // if the ean is not 13 characters don't do anything
         if (ean.length() != 13) {
-            return;
-        }
-        // if the book is already loaded, don't reload it
-        if (mBook != null && mBook.ean.equals(ean)) {
             return;
         }
 
