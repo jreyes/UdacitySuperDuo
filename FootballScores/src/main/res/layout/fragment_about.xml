@@ -10,4 +10,4 @@
     android:gravity="center"
     android:text="@string/about_text"
     android:textSize="12sp"
-    tools:context="barqsoft.footballscores.activity.AboutActivity$PlaceholderFragment" />
+    tools:context="barqsoft.footballscores.fragment.AboutFragment" />
