@@ -29,7 +29,6 @@ import java.util.Collections;
 public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 // ------------------------------ FIELDS ------------------------------
 
-    private static final String EAN_CONTENT = "eanContent";
     private static final int LOADER_ID = 1;
 
     private Book mBook;
@@ -45,7 +44,7 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
     public android.support.v4.content.Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(
                 getActivity(),
-                AlexandriaContract.BookEntry.buildFullBookUri(args.getLong(EAN_CONTENT)),
+                AlexandriaContract.BookEntry.buildFullBookUri(args.getLong(BookService.EAN)),
                 null,
                 null,
                 null,
@@ -199,7 +198,7 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
 
         // and restart the loader
         Bundle arguments = new Bundle();
-        arguments.putLong(EAN_CONTENT, Long.valueOf(ean));
+        arguments.putLong(BookService.EAN, Long.valueOf(ean));
         getLoaderManager().restartLoader(LOADER_ID, arguments, this);
     }
 
