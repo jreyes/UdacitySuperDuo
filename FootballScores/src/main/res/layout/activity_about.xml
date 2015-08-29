@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <fragment
-    android:id="@+id/container"
+    android:id="@+id/fragment_about"
+    android:name="barqsoft.footballscores.ui.fragment.AboutFragment"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name="barqsoft.footballscores.fragment.AboutFragment"
-    tools:context="barqsoft.footballscores.activity.AboutActivity" />
+    tools:context="barqsoft.footballscores.ui.activity.AboutActivity"
+    tools:layout="@layout/fragment_about"/>

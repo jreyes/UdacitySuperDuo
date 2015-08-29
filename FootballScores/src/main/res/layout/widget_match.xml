@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#665DA629"
+    android:orientation="vertical"
+    android:padding="@dimen/widget_padding"
+    android:theme="@style/Theme.AppCompat.NoActionBar">
+
+    <TextView
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/widget_margin"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:padding="@dimen/widget_margin"
+        android:text="@string/today_matches"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/widget_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="@dimen/widget_padding"
+            tools:listitem="@layout/list_item_widget_match"/>
+
+        <TextView
+            android:id="@+id/widget_list_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/no_matches_available"/>
+
+    </FrameLayout>
+
+</LinearLayout>

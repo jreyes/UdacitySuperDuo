@@ -7,9 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-import it.jaschke.alexandria.R;
-import it.jaschke.alexandria.activity.MainActivity;
-import it.jaschke.alexandria.data.AlexandriaContract;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +18,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import it.jaschke.alexandria.R;
+import it.jaschke.alexandria.activity.MainActivity;
+import it.jaschke.alexandria.data.AlexandriaContract;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -32,7 +34,10 @@ public class BookService extends IntentService {
     public static final String DELETE_BOOK = "it.jaschke.alexandria.services.action.DELETE_BOOK";
     public static final String EAN = "it.jaschke.alexandria.services.extra.EAN";
     public static final String FETCH_BOOK = "it.jaschke.alexandria.services.action.FETCH_BOOK";
+    private static final String ISBN_PARAM = "isbn:";
     private static final String LOG_TAG = BookService.class.getSimpleName();
+    private static final String QUERY_PARAM = "q";
+    private static final String QUERY_URL = "https://www.googleapis.com/books/v1/volumes?";
 
 // --------------------------- CONSTRUCTORS ---------------------------
 
@@ -84,6 +89,10 @@ public class BookService extends IntentService {
                 null  // sort order
         );
 
+        if (bookEntry == null) {
+            return;
+        }
+
         if (bookEntry.getCount() > 0) {
             bookEntry.close();
             return;
@@ -96,13 +105,8 @@ public class BookService extends IntentService {
         String bookJsonString = null;
 
         try {
-            final String FORECAST_BASE_URL = "https://www.googleapis.com/books/v1/volumes?";
-            final String QUERY_PARAM = "q";
-
-            final String ISBN_PARAM = "isbn:" + ean;
-
-            Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
-                    .appendQueryParameter(QUERY_PARAM, ISBN_PARAM)
+            Uri builtUri = Uri.parse(QUERY_URL).buildUpon()
+                    .appendQueryParameter(QUERY_PARAM, ISBN_PARAM + ean)
                     .build();
 
             URL url = new URL(builtUri.toString());

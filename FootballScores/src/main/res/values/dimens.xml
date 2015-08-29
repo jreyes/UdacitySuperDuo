@@ -2,9 +2,20 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="list_horizonal_matgin">2dp</dimen>
+    <dimen name="list_horizontal_margin">2dp</dimen>
     <dimen name="share_button_margin">150dp</dimen>
     <dimen name="TeamNames">17sp</dimen>
     <dimen name="Score">30sp</dimen>
     <dimen name="League">15sp</dimen>
+
+    <dimen name="card_top_padding">24dp</dimen>
+    <dimen name="card_bottom_padding">16dp</dimen>
+    <dimen name="card_button_margin">8dp</dimen>
+
+    <dimen name="card_margin_horizontal">4dp</dimen>
+    <dimen name="card_margin_vertical">8dp</dimen>
+    <dimen name="card_padding">16dp</dimen>
+
+    <dimen name="widget_padding">6dp</dimen>
+    <dimen name="widget_margin">4dp</dimen>
 </resources>
