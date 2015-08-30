@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import static barqsoft.footballscores.data.DatabaseContract.ScoresTable.*;
+import static barqsoft.footballscores.util.NetworkUtil.isNetworkAvailable;
 
 public class FootballService extends IntentService {
 // ------------------------------ FIELDS ------------------------------
@@ -42,8 +43,10 @@ public class FootballService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        storeMatches(mFootballApi.getMatches("p2"));
-        storeMatches(mFootballApi.getMatches("n4"));
+        if (isNetworkAvailable(getApplicationContext())) {
+            storeMatches(mFootballApi.getMatches("p2"));
+            storeMatches(mFootballApi.getMatches("n4"));
+        }
     }
 
     private String getLeagueName(String leagueId) {

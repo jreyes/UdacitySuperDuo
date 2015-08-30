@@ -9,22 +9,22 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.squareup.picasso.Picasso;
 import it.jaschke.alexandria.R;
 import it.jaschke.alexandria.data.AlexandriaContract;
 import it.jaschke.alexandria.model.Book;
 import it.jaschke.alexandria.services.BookService;
 
 import java.util.Collections;
+
+import static it.jaschke.alexandria.util.ViewUtil.setImage;
+import static it.jaschke.alexandria.util.ViewUtil.setLines;
+import static it.jaschke.alexandria.util.ViewUtil.setText;
 
 public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 // ------------------------------ FIELDS ------------------------------
@@ -150,24 +150,19 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
 
     private void displayBook() {
         if (mBook == null) {
-            ((TextView) mRootView.findViewById(R.id.bookTitle)).setText("");
-            ((TextView) mRootView.findViewById(R.id.bookSubTitle)).setText("");
-            ((TextView) mRootView.findViewById(R.id.authors)).setText("");
-            ((TextView) mRootView.findViewById(R.id.categories)).setText("");
+            setText(mRootView, R.id.bookTitle, "");
+            setText(mRootView, R.id.bookSubTitle, "");
+            setText(mRootView, R.id.authors, "");
+            setText(mRootView, R.id.categories, "");
             mRootView.findViewById(R.id.bookCover).setVisibility(View.INVISIBLE);
             mRootView.findViewById(R.id.save_button).setVisibility(View.INVISIBLE);
             mRootView.findViewById(R.id.delete_button).setVisibility(View.INVISIBLE);
         } else {
-            ((TextView) mRootView.findViewById(R.id.bookTitle)).setText(mBook.bookTitle);
-            ((TextView) mRootView.findViewById(R.id.bookSubTitle)).setText(mBook.bookSubTitle);
-            ((TextView) mRootView.findViewById(R.id.authors)).setLines(mBook.authors.split(",").length);
-            ((TextView) mRootView.findViewById(R.id.authors)).setText(mBook.authors.replace(",", "\n"));
-            ((TextView) mRootView.findViewById(R.id.categories)).setText(mBook.categories);
-            if (Patterns.WEB_URL.matcher(mBook.imgUrl).matches()) {
-                ImageView cover = (ImageView) mRootView.findViewById(R.id.bookCover);
-                Picasso.with(getActivity()).load(mBook.imgUrl).error(R.drawable.ic_launcher).into(cover);
-                cover.setVisibility(View.VISIBLE);
-            }
+            setText(mRootView, R.id.bookTitle, mBook.bookTitle);
+            setText(mRootView, R.id.bookSubTitle, mBook.bookSubTitle);
+            setLines(mRootView, R.id.authors, mBook.authors);
+            setText(mRootView, R.id.categories, mBook.categories);
+            setImage(mRootView, R.id.bookCover, mBook.imgUrl);
             mRootView.findViewById(R.id.save_button).setVisibility(View.VISIBLE);
             mRootView.findViewById(R.id.delete_button).setVisibility(View.VISIBLE);
         }

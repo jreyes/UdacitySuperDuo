@@ -23,6 +23,8 @@ import it.jaschke.alexandria.R;
 import it.jaschke.alexandria.activity.MainActivity;
 import it.jaschke.alexandria.data.AlexandriaContract;
 
+import static it.jaschke.alexandria.util.NetworkUtil.isNetworkAvailable;
+
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
@@ -49,7 +51,7 @@ public class BookService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
             final String action = intent.getAction();
-            if (FETCH_BOOK.equals(action)) {
+            if (FETCH_BOOK.equals(action) && isNetworkAvailable(getApplicationContext())) {
                 final String ean = intent.getStringExtra(EAN);
                 fetchBook(ean);
             } else if (DELETE_BOOK.equals(action)) {

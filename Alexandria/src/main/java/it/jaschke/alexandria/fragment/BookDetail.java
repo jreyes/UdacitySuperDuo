@@ -9,15 +9,15 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.ShareActionProvider;
-import android.util.Patterns;
 import android.view.*;
-import android.widget.ImageView;
-import android.widget.TextView;
-import com.squareup.picasso.Picasso;
 import it.jaschke.alexandria.R;
 import it.jaschke.alexandria.data.AlexandriaContract;
 import it.jaschke.alexandria.model.Book;
 import it.jaschke.alexandria.services.BookService;
+
+import static it.jaschke.alexandria.util.ViewUtil.setImage;
+import static it.jaschke.alexandria.util.ViewUtil.setLines;
+import static it.jaschke.alexandria.util.ViewUtil.setText;
 
 public class BookDetail extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 // ------------------------------ FIELDS ------------------------------
@@ -132,16 +132,11 @@ public class BookDetail extends Fragment implements LoaderManager.LoaderCallback
         }
 
         // populate the view
-        ((TextView) rootView.findViewById(R.id.fullBookTitle)).setText(mBook.bookTitle);
-        ((TextView) rootView.findViewById(R.id.fullBookSubTitle)).setText(mBook.bookSubTitle);
-        ((TextView) rootView.findViewById(R.id.fullBookDesc)).setText(mBook.description);
-        ((TextView) rootView.findViewById(R.id.authors)).setLines(mBook.authors.split(",").length);
-        ((TextView) rootView.findViewById(R.id.authors)).setText(mBook.authors.replace(",", "\n"));
-        ((TextView) rootView.findViewById(R.id.categories)).setText(mBook.categories);
-        if (Patterns.WEB_URL.matcher(mBook.imgUrl).matches()) {
-            ImageView cover = (ImageView) rootView.findViewById(R.id.fullBookCover);
-            Picasso.with(getActivity()).load(mBook.imgUrl).error(R.drawable.ic_launcher).into(cover);
-            cover.setVisibility(View.VISIBLE);
-        }
+        setText(rootView, R.id.fullBookTitle, mBook.bookTitle);
+        setText(rootView, R.id.fullBookSubTitle, mBook.bookSubTitle);
+        setText(rootView, R.id.fullBookDesc, mBook.description);
+        setLines(rootView, R.id.authors, mBook.authors);
+        setText(rootView, R.id.categories, mBook.categories);
+        setImage(rootView, R.id.fullBookCover, mBook.imgUrl);
     }
 }
